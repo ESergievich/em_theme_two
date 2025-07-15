@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import pandas as pd
 
@@ -27,8 +28,7 @@ def parse_excel_file(path):
         total = float(row['Обьем\nДоговоров,\nруб.'][0])
         count = int(row['Количество\nДоговоров,\nшт.'])
         p = path.split('_')[-1]
-        y, m, d = p[:4], p[4:6], p[6:8]
-        date = f"{y}-{m}-{d}"
+        date = datetime.strptime(p[:8], "%Y%m%d").date()
 
         record = SpimexTradingResult(
             exchange_product_id=product_id,

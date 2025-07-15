@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 from sqlalchemy import Integer, String, Float, Date, CheckConstraint, DateTime
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
@@ -27,9 +27,9 @@ class SpimexTradingResult(Base):
     oil_id: Mapped[str] = mapped_column(String)
     delivery_basis_id: Mapped[str] = mapped_column(String)
     delivery_type_id: Mapped[str] = mapped_column(String)
-    date: Mapped[Date] = mapped_column(String, CheckConstraint("date >= '2023-01-01'"))
-    created_on: Mapped[DateTime] = mapped_column(DateTime, default=datetime.now)
-    updated_on: Mapped[DateTime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
+    date: Mapped[date] = mapped_column(Date, CheckConstraint("date >= DATE '2023-01-01'"))
+    created_on: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    updated_on: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 
 
 async def init_db():
