@@ -48,10 +48,10 @@ def parse_excel_file(path):
 
 async def process_excel_files():
     file_paths = fetch_file_paths()
+    all_records = []
     for path in file_paths:
         records = parse_excel_file(path)
-        async with AsyncSessionLocal() as session:
-            async with session.begin():
-                session.add_all(records)
-
-
+        all_records.extend(records)
+    async with AsyncSessionLocal() as session:
+        async with session.begin():
+            session.add_all(all_records)
