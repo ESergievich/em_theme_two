@@ -42,11 +42,14 @@ async def process_pages(session):
     # last_page = get_last_page_url(html) # 391
     last_page = 391
 
+    # ----------------------------------------------------
+    # Выполнение этого кода увеличивается с 5 секунд до 100 при разном получении last_page
     tasks = [
         fetch_html(session, f"{PAGE_URL}{page_num}")
         for page_num in range(1, last_page + 1)
     ]
     pages_html = await asyncio.gather(*tasks)
+    # ----------------------------------------------------
 
     download_tasks = []
     for html in pages_html:
